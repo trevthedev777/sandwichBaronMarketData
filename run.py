@@ -1,5 +1,6 @@
 import gspread #imports the entire gspread library so we can access any data and / or classes inside our worksheets
 from google.oauth2.service_account import Credentials #imports the Credentials classs from service_acount() from google auth library
+from pprint import pprint
 
 
 #Constant Variables
@@ -65,6 +66,30 @@ def  update_sales_worksheet(data):
     sales_worksheet.append_row(data)
     print('Sales worksheet updated successfully.\n')
 
-data = get_sales_data()
-sales_data = [int(num) for num in data] #for each num in data, convert to integers
-update_sales_worksheet(sales_data) #adds user input data to new row in worksheet
+
+def calculate_surplus_data(sales_row):
+    """
+    Compare sales with stock and calculate the surplus for each item type.
+
+    The surplus is defines as the sales figure subtracted from the stock:
+    - Positive surplus indicates waste
+    - Negative Surplus indicates extra made when stock was sold out
+    """
+    print('Calculating surplus data....\n')
+    stock = SHEET.worksheet('stock').get_all_values()
+    stock_row = stock.pop()
+    print(stock_row)
+
+
+def main():
+    """
+    Run all program functions
+    """
+    data = get_sales_data()
+    sales_data = [int(num) for num in data] #for each num in data, convert to integers
+    update_sales_worksheet(sales_data) #adds user input data to new row in worksheet
+    calculate_surplus_data(sales_data)
+
+
+print('Welcome to Sandwich Baron Data Automation')
+main()
