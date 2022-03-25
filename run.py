@@ -57,14 +57,24 @@ def validate_data(values):
     return True
 
 
-def  update_sales_worksheet(data):
-    """
-    Update sales worksheet, add new row with the list data provided
-    """
-    print('Updating sales worksheet....\n')
-    sales_worksheet = SHEET.worksheet('sales')
-    sales_worksheet.append_row(data)
-    print('Sales worksheet updated successfully.\n')
+# def  update_sales_worksheet(data):
+#     """
+#     Update sales worksheet, add new row with the list data provided
+#     """
+#     print('Updating sales worksheet....\n')
+#     sales_worksheet = SHEET.worksheet('sales')
+#     sales_worksheet.append_row(data)
+#     print('Sales worksheet updated successfully.\n')
+
+# def  update_surplus_worksheet(data):
+#     """
+#     Update surplus worksheet, add new row with the list data provided
+#     """
+#     print('Updating surplus worksheet....\n')
+#     surplus_worksheet = SHEET.worksheet('surplus')
+#     surplus_append_row(data)
+#     print('Surplus worksheet updated successfully :).\n')
+
 
 
 def calculate_surplus_data(sales_row):
@@ -87,15 +97,15 @@ def calculate_surplus_data(sales_row):
     return surplus_data
 
 
-def  update_surplus_worksheet(data):
+def update_worksheet(data, worksheet):
     """
-    Update surplus worksheet, add new row with the list data provided
+    Receives a list of integers to be inserted into a worksheet
+    Update the relevant worksheet with the data provided
     """
-    print('Updating surplus worksheet....\n')
-    sales_worksheet = SHEET.worksheet('surplus')
-    sales_worksheet.append_row(data)
-    print('Surplus worksheet updated successfully :).\n')
-
+    print(f'Updating {worksheet} worksheet...\n')
+    worksheet_to_update = SHEET.worksheet(worksheet)
+    worksheet_to_update.append_row(data)
+    print(f'{worksheet} worksheet updated successfully.\n')
 
 def main():
     """
@@ -106,11 +116,11 @@ def main():
     #for each num in data, convert to integers
     sales_data = [int(num) for num in data] 
     #adds user input data to new row in worksheet
-    update_sales_worksheet(sales_data) 
+    update_worksheet(sales_data, 'sales') 
     #calculates the sales and the stock
     new_surplus_data = calculate_surplus_data(sales_data) 
     #returns the calulation of new_surplus_data and appends to surplus worksheet
-    update_surplus_worksheet(new_surplus_data)
+    update_worksheet(new_surplus_data, 'surplus')
     print(new_surplus_data)
 
 
