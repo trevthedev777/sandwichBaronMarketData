@@ -121,23 +121,41 @@ def update_worksheet(data, worksheet):
     worksheet_to_update.append_row(data)
     print(f'{worksheet} worksheet updated successfully.\n')
 
+def calculate_stock_data(data):
+    """
+    Calculate the average stock for each item type, adding 10%
+    """
+    print('Calculating the stock data....\n')
+    new_stock_data = []
+
+    for column in data:
+        int_column = [int(num) for num in column]
+        average = sum(int_column) / len(int_column) 
+        stock_num = average * 1.1
+        new_stock_data.append(round(stock_num))
+
+    return new_stock_data
+
+
 def main():
     """
     Run all program functions
     """
-    #Collects data from sheets document
+    # Collects data from sheets document
     data = get_sales_data()
-    #for each num in data, convert to integers
+    # for each num in data, convert to integers
     sales_data = [int(num) for num in data] 
-    #adds user input data to new row in worksheet
+    # adds user input data to new row in worksheet
     update_worksheet(sales_data, 'sales') 
-    #calculates the sales and the stock
+    # calculates the sales and the stock
     new_surplus_data = calculate_surplus_data(sales_data) 
-    #returns the calulation of new_surplus_data and appends to surplus worksheet
+    # returns the calulation of new_surplus_data and appends to surplus worksheet
     update_worksheet(new_surplus_data, 'surplus')
-    print(new_surplus_data)
+    sales_columns = get_five_last_entries_sales()
+    stock_data = calculate_stock_data(sales_columns)
+    update_worksheet(stock_data, 'stock')
+    print(stock_data)
 
 
 print('Welcome to Sandwich Baron Data Automation')
-# main()
-get_five_last_entries_sales()
+main()
