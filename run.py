@@ -1,6 +1,5 @@
 import gspread #imports the entire gspread library so we can access any data and / or classes inside our worksheets
 from google.oauth2.service_account import Credentials #imports the Credentials classs from service_acount() from google auth library
-from pprint import pprint
 
 
 #Constant Variables
@@ -27,7 +26,7 @@ def get_sales_data():
         print('Data should be six numbers, seperated by commas(CSV).')
         print('Example: 10, 20, 30, 40, 50, 60\n')
 
-        data_str = input('Enter your data here: ') #User inputs data here
+        data_str = input('Enter your data here: \n') #User inputs data here
 
         sales_data = data_str.split(',') #will remove commas from the string, the split() method returns the broken up values as a list
         
